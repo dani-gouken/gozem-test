@@ -1,0 +1,150 @@
+<div class="max-w-6xl mx-auto">
+  <p-menubar [model]="items" styleClass="rounded-none">
+    <ng-template pTemplate="start">
+      <div class="mr-8">Web Driver</div>
+    </ng-template>
+  </p-menubar>
+  <div class="mt-5 mx-4">
+    <h1 class="text-2xl">Web Tracker</h1>
+    <hr class="my-8" />
+    <form (ngSubmit)="search()" [formGroup]="searchForm" class="gap-4 flex">
+      <input
+        placeholder="Enter Package ID"
+        pInputText
+        class="flex-auto"
+        formControlName="package_id"
+      />
+      <p-button
+        [loading]="searching"
+        type="submit"
+        [disabled]="!searchForm.valid"
+        label="Submit"
+      />
+    </form>
+
+    <hr class="my-6" />
+    <div class="flex gap-8" *ngIf="package">
+      <div class="w-1/2">
+        <div>
+          <div>
+            <div>
+              <h2 class="text-xl">Package Details</h2>
+              <p-table
+                [value]="[package]"
+                [tableStyle]="{ 'min-width': '50rem' }"
+              >
+                <ng-template pTemplate="body">
+                  <tr>
+                    <td>Description</td>
+                    <td>{{ package.description }}</td>
+                  </tr>
+                  <tr>
+                    <td>Weight</td>
+                    <td>{{ package.weight }} KG</td>
+                  </tr>
+                  <tr>
+                    <td>Width</td>
+                    <td>{{ package.width }} CM</td>
+                  </tr>
+                  <tr>
+                    <td>Depth</td>
+                    <td>{{ package.depth }} CM</td>
+                  </tr>
+                  <tr>
+                    <td>From</td>
+                    <td>
+                      {{ package.from_name }}
+                      <p class="text-sm text-gray-500">
+                        {{ package.from_address }}
+                      </p>
+                      <p class="text-xs text-gray-500">
+                        (Lat: {{ package.from_location.lat }}, Lng:
+                        {{ package.from_location.lng }})
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>TO</td>
+                    <td>
+                      {{ package.to_name }}
+                      <p class="text-sm text-gray-500">
+                        {{ package.to_address }}
+                      </p>
+                      <p class="text-xs text-gray-500">
+                        (Lat: {{ package.to_location.lat }}, Lng:
+                        {{ package.to_location.lng }})
+                      </p>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+            <div *ngIf="package.active_delivery">
+              <h2 class="text-xl">Delivery Details</h2>
+              <p-table
+                [value]="[package.active_delivery]"
+                [tableStyle]="{ 'min-width': '50rem' }"
+              >
+                <ng-template pTemplate="body">
+                  <tr>
+                    <td>Status</td>
+                    <td>{{ package.active_delivery.status }}</td>
+                  </tr>
+                  <tr>
+                    <td>Started at</td>
+                    <td>
+                      {{
+                        package.active_delivery.start_time == null
+                          ? "N/A"
+                          : (package.active_delivery.start_time! | date)
+                      }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Picked at</td>
+                    <td>
+                      {{
+                        package.active_delivery.pickup_time == null
+                          ? "N/A"
+                          : (package.active_delivery.pickup_time! | date)
+                      }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Ended at</td>
+                    <td>
+                      {{
+                        package.active_delivery.end_time == null
+                          ? "N/A"
+                          : (package.active_delivery.end_time! | date)
+                      }}
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-1/2 flex-auto">
+        <google-map
+          [options]="mapOptions"
+          class="w-full"
+          [center]="center"
+          [zoom]="zoom"
+        >
+          <map-advanced-marker
+            *ngFor="let marker of markerPositions"
+            [position]="marker.position"
+            [content]="marker.content"
+            [title]="marker.title"
+            [options]="marker.options"
+          >
+          </map-advanced-marker>
+        </google-map>
+      </div>
+    </div>
+    <ng-template #empty> </ng-template>
+  </div>
+  <p-toast />
+</div>

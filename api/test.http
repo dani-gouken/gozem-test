@@ -1,0 +1,85 @@
+@baseUrl=http://localhost:3000
+GET {{ baseUrl }}/api/package
+
+###
+
+DELETE {{ baseUrl }}/api/package/dde2f94a-226d-403a-854f-84bd11a441db
+###
+
+GET {{ baseUrl }}/api/package/3aca4dbb-d001-4b72-acc6-b408c14d01b1
+###
+POST {{ baseUrl }}/api/package/{{$guid}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "description" : "un package",
+    "weight": "400",
+    "width": "400",
+    "depth": "400",
+
+    "from_name": "Daniel",
+    "from_address": "Somwhere",
+    "from_location": {
+        "lat": 10,
+        "lng": 20
+    },
+
+    "to_name": "Daniel",
+    "to_address": "Somwhere",
+    "to_location": {
+        "lat": 10,
+        "lng": 20
+    }
+}
+
+###
+
+PUT {{ baseUrl }}/api/package/5cb8db15-4841-45c2-8e8a-b2d5af6cc343
+Content-Type: application/json
+Accept: application/json
+
+{
+    "description" : "un package update",
+    "from_location": {
+        "lat": 90,
+        "lng": 90
+    }
+}
+
+###
+
+GET {{ baseUrl }}/api/delivery
+
+###
+
+POST {{ baseUrl }}/api/delivery/{{$guid}}
+Content-Type: application/json
+Accept: application/json
+
+{"package_id":"69b84fe0-1814-480d-8f4d-5473b2d62a16"}
+
+
+###
+
+GET {{ baseUrl }}/api/delivery
+###
+
+GET {{ baseUrl }}/api/delivery/c7acf174-a278-4416-a96f-92ca1054a8bd
+###
+
+DELETE {{ baseUrl }}/api/delivery/a13dfcf2-e127-4286-934a-55fd1d1245c4
+###
+
+PUT {{ baseUrl }}/api/delivery/c89914cc-2bf8-4bfe-b128-ec90239c482b
+Content-Type: application/json
+Accept: application/json
+
+{
+    "location": {
+        "lat": 100,
+        "lng": 100
+    }
+}
+
+###

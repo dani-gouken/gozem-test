@@ -1,0 +1,49 @@
+<div class="flex min-h-screen max-w-4xl w-full mx-auto">
+  <div class="my-auto w-full flex gap-4">
+    <div class="w-1/3">
+      <p-card header="Web tracker">
+        <p class="m-0">Track packges</p>
+        <ng-template pTemplate="footer">
+          <div class="flex gap-3 mt-1">
+            <p-button
+              routerLink="/tracker"
+              label="Open"
+              class="w-full"
+              styleClass="w-full"
+            />
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+    <div class="w-1/3">
+      <p-card header="Admin">
+        <p class="m-0">Web Administration</p>
+        <ng-template pTemplate="footer">
+          <div class="flex gap-3 mt-1">
+            <p-button
+              routerLink="/admin"
+              label="Open"
+              class="w-full"
+              styleClass="w-full"
+            />
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+    <div class="w-1/3">
+      <p-card header="Web driver">
+        <p class="m-0">Driver's web interface</p>
+        <ng-template pTemplate="footer">
+          <div class="flex gap-3 mt-1">
+            <p-button
+              routerLink="/driver"
+              label="Open"
+              class="w-full"
+              styleClass="w-full"
+            />
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+  </div>
+</div>

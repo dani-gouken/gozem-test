@@ -1,0 +1,10 @@
+<div class="max-w-6xl mx-auto">
+  <p-menubar [model]="items" styleClass="rounded-none">
+    <ng-template pTemplate="start">
+      <div class="mr-8">Web Administration</div>
+    </ng-template>
+  </p-menubar>
+  <div class="mt-5 mx-4">
+    <router-outlet></router-outlet>
+  </div>
+</div>

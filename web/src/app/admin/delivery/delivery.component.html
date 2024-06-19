@@ -1,0 +1,110 @@
+<div>
+  <h1 class="text-2xl">Deliveries</h1>
+  <hr class="my-8" />
+  <form
+    (ngSubmit)="onCreateFormSubmitted()"
+    [formGroup]="deliveryForm"
+    class="gap-4 flex flex-col"
+  >
+    <div class="flex flex-col gap-2">
+      <div *ngIf="packages$ | async as packages">
+        <label class="font-bold block" for="description">Description</label>
+        <p-dropdown
+          formControlName="package_id"
+          [options]="packages"
+          optionLabel="description"
+          optionValue="package_id"
+          placeholder="Select a package"
+        />
+      </div>
+    </div>
+    <p-button
+      [loading]="creating"
+      type="submit"
+      [disabled]="!deliveryForm.valid"
+      label="Create"
+    />
+  </form>
+  <hr class="my-8" />
+  <div>
+    <div *ngIf="deliveries$ | async as deliveries; else loading">
+      <p-table [value]="deliveries" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Code</th>
+            <th>Status</th>
+            <th>Package</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Started at</th>
+            <th>Picked at</th>
+            <th>Ended at</th>
+            <th>Position</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-delivery>
+          <tr>
+            <td class="text-sm">{{ delivery.delivery_id }}</td>
+            <td>{{ delivery.status }}</td>
+            <td>
+              {{ delivery.package.description }}
+            </td>
+            <td>
+              <div>
+                <p class="text-sm font-bold">
+                  {{ delivery.package.from_name }}
+                </p>
+                <p class="text-xs text-gray-500">
+                  {{ delivery.package.from_address }}<br />
+                  (Lat: {{ delivery.package.from_location.lat }}, Lng:
+                  {{ delivery.package.from_location.lng }}))
+                </p>
+              </div>
+            </td>
+            <td>
+              <div>
+                <p class="text-sm font-bold">
+                  {{ delivery.package.to_name }}
+                </p>
+                <p class="text-xs text-gray-500">
+                  {{ delivery.package.to_address }}<br />
+                  (Lat: {{ delivery.package.to_location.lat }}, Lng:
+                  {{ delivery.package.to_location.lng }}))
+                </p>
+              </div>
+            </td>
+            <td>
+              {{
+                !delivery.start_time
+                  ? "N/A"
+                  : (delivery.start_time | date : "dd/MM/yyyy h:m")
+              }}
+            </td>
+            <td>
+              {{
+                !delivery.pickup_time
+                  ? "N/A"
+                  : (delivery.pickup_time | date : "dd/MM/yyyy h:m")
+              }}
+            </td>
+            <td>
+              {{
+                !delivery.end_time
+                  ? "N/A"
+                  : (delivery.end_time | date : "dd/MM/yyyy h:m")
+              }}
+            </td>
+            <td>
+              <p class="text-lg text-gray-500">
+                (Lat: {{ delivery.location.lat }}, Lng:
+                {{ delivery.location.lng }})
+              </p>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+
+  <ng-template #loading> Loading... </ng-template>
+</div>
