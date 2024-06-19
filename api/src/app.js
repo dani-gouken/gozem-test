@@ -19,7 +19,6 @@ export const createApp = (db) => {
   app.use(express.json());
   app.use((req, res, next) => {
     req.broadcast = (msg) => {
-      console.log(msg, wss.getWss().clients.size);
       wss.getWss().clients.forEach((c) => c.send(JSON.stringify(msg)));
     };
     next();

@@ -73,7 +73,7 @@ export class PackageComponent implements OnInit {
       .pipe(
         catchError((e) => {
           let message = 'Something went wrong';
-          console.log(e);
+          console.error(e);
           if (e instanceof HttpErrorResponse && e.error && e.error.message) {
             message = e.error.message;
           }

@@ -76,9 +76,6 @@ export class DriverComponent implements OnInit, OnDestroy {
         },
       },
     ];
-    this.socket.addEventListener('message', (event) => {
-      console.log('Message from server ', event.data);
-    });
   }
   updateStatus(status: DeliveryStatus) {
     this.updating = true;
@@ -168,7 +165,7 @@ export class DriverComponent implements OnInit, OnDestroy {
       .pipe(
         catchError((e) => {
           let message = 'Something went wrong';
-          console.log(e);
+          console.error(e);
           if (e instanceof HttpErrorResponse) {
             if (e.error && e.error.message) {
               message = e.error.message;

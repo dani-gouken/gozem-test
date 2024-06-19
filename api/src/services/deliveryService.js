@@ -19,7 +19,6 @@ async function store(pckg, data) {
 
 function getStatusUpdate(delivery, newStatus) {
   const previousStatus = delivery.status;
-  console.log(delivery.status);
   if (
     previousStatus == DeliveryStatus.failed ||
     previousStatus == DeliveryStatus.delivered

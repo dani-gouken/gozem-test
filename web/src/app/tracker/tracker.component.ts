@@ -77,7 +77,7 @@ export class TrackerComponent {
       }
 
       const payload = JSON.parse(event.data);
-      console.log(payload);
+      console.error(payload);
       if (!payload.event || payload.event != 'delivery_updated') {
         return;
       }
